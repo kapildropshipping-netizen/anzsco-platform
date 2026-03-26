@@ -46,7 +46,7 @@ export default function Home() {
       {/* HERO */}
       <div style={{
         position: "relative",
-        height: "420px",
+        height: "520px",
         backgroundImage: "url('https://images.unsplash.com/photo-1529336953121-ad5a0d43d0d2')",
         backgroundSize: "cover",
         backgroundPosition: "center"
@@ -67,7 +67,7 @@ export default function Home() {
           position: "relative",
           zIndex: 2,
           color: "#fff",
-          padding: "80px 40px",
+          padding: "100px 40px",
           maxWidth: "700px"
         }}>
           <h1 style={{
@@ -102,12 +102,14 @@ export default function Home() {
       {/* SEARCH CARD */}
       <div style={{
         maxWidth: "900px",
-        margin: "-80px auto 50px",
+        margin: "-60px auto 50px",
         background: "#fff",
         padding: "30px",
         borderRadius: "12px",
         border: "1px solid #eee",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.08)"
+        boxShadow: "0 20px 40px rgba(0,0,0,0.08)",
+        position: "relative",
+        zIndex: 5
       }}>
         <h2 style={{ textAlign: "center" }}>ANZSCO Search Tool</h2>
 

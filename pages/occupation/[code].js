@@ -42,6 +42,7 @@ export default function OccupationPage() {
 
   if (!occupation) return <p>Loading...</p>;
 
+  // normalize
   const normalizedStates = states.map((s) => ({
     id: s.id,
     state: s.state || s.state_name || "N/A",
@@ -49,20 +50,31 @@ export default function OccupationPage() {
     status: s.status || "Unknown",
   }));
 
+  // sort
   const sortedStates = normalizedStates.sort((a, b) => {
     const order = { Open: 1, Limited: 2, Closed: 3 };
     return order[a.status] - order[b.status];
   });
 
+  // filter
   const filteredStates =
     filter === "All"
       ? sortedStates
       : sortedStates.filter((s) => s.status === "Open");
 
+  // best option
   const bestState =
     sortedStates.find((s) => s.status === "Open") || sortedStates[0];
 
-  // 🚀 FINAL WORKING SUBMIT (NO ERROR VERSION)
+  // 🎯 LEAD SCORE
+  const score =
+    bestState?.status === "Open"
+      ? "High"
+      : bestState?.status === "Limited"
+      ? "Medium"
+      : "Low";
+
+  // 🚀 GOOGLE SHEETS SUBMIT
   async function handleSubmit() {
     if (!name || !email || !phone) {
       alert("Please fill all fields");
@@ -74,12 +86,13 @@ export default function OccupationPage() {
       email,
       phone,
       occupation: occupation.occupation_name,
+      score
     };
 
     try {
       await fetch("https://script.google.com/macros/s/AKfycbwRn3X56tXjdcG_T7sUdkI47HXoBWo1TWYgiUjsh9VgfQKSmLxe_w4cHb9OE4YWxiSVQA/exec", {
         method: "POST",
-        mode: "no-cors", // 🔥 THIS FIXES ERROR
+        mode: "no-cors", // required
         headers: {
           "Content-Type": "application/json",
         },
@@ -117,6 +130,7 @@ export default function OccupationPage() {
       minHeight: "100vh"
     }}>
       
+      {/* HEADER */}
       <h1 style={{ fontSize: "32px", marginBottom: "5px" }}>
         {occupation.occupation_name}
       </h1>
@@ -125,19 +139,29 @@ export default function OccupationPage() {
         ANZSCO Code: {occupation.anzsco_code}
       </p>
 
+      {/* BEST PATHWAY */}
       {bestState && (
         <div style={{
           background: "linear-gradient(135deg, #d4fc79, #96e6a1)",
           padding: "18px",
           borderRadius: "10px",
           marginTop: "20px",
-          marginBottom: "25px",
+          marginBottom: "15px",
           fontWeight: "bold"
         }}>
           ⭐ Best Pathway: {bestState.state} → {bestState.visa} ({bestState.status})
         </div>
       )}
 
+      {/* 🎯 SCORE */}
+      <div style={{
+        marginBottom: "20px",
+        fontWeight: "bold"
+      }}>
+        🎯 Chance Level: {score}
+      </div>
+
+      {/* FILTER */}
       <div style={{ marginBottom: "20px" }}>
         <button onClick={() => setFilter("All")} style={{ marginRight: "10px" }}>
           All
@@ -149,6 +173,7 @@ export default function OccupationPage() {
 
       <h2>State Availability</h2>
 
+      {/* STATE LIST */}
       {filteredStates.map((s) => (
         <div key={s.id} style={{
           display: "flex",
@@ -179,6 +204,7 @@ export default function OccupationPage() {
         </div>
       ))}
 
+      {/* FORM */}
       <div style={{
         marginTop: "40px",
         padding: "25px",
@@ -189,20 +215,40 @@ export default function OccupationPage() {
         <h3>Check Your Eligibility</h3>
         <p>Enter your details to get a personalized migration pathway</p>
 
-        <input placeholder="Your Name" value={name} onChange={(e) => setName(e.target.value)} style={inputStyle} />
-        <input placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} style={inputStyle} />
-        <input placeholder="Phone" value={phone} onChange={(e) => setPhone(e.target.value)} style={inputStyle} />
+        <input
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={inputStyle}
+        />
 
-        <button onClick={handleSubmit} style={{
-          marginTop: "15px",
-          padding: "12px",
-          width: "100%",
-          background: "black",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-          cursor: "pointer"
-        }}>
+        <input
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={inputStyle}
+        />
+
+        <input
+          placeholder="Phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          style={inputStyle}
+        />
+
+        <button
+          onClick={handleSubmit}
+          style={{
+            marginTop: "15px",
+            padding: "12px",
+            width: "100%",
+            background: "black",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer"
+          }}
+        >
           Get My Assessment
         </button>
       </div>

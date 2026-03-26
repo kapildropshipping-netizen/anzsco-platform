@@ -35,21 +35,36 @@ export default function Home() {
         marginBottom: "40px"
       }}>
         <h1 style={{
-          fontSize: "36px",
+          fontSize: "40px",
+          fontWeight: "bold",
           marginBottom: "10px"
         }}>
           Check Your Australia PR Chances Instantly 🇦🇺
         </h1>
 
         <p style={{
-          color: "#666",
-          fontSize: "16px"
+          color: "#555",
+          fontSize: "18px",
+          marginBottom: "25px"
         }}>
-          Find the best state, visa options, and your success probability in seconds
+          Find your best state, visa pathway & success probability in seconds
         </p>
+
+        {/* CTA BUTTON */}
+        <button style={{
+          padding: "12px 25px",
+          background: "black",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          marginBottom: "30px"
+        }}>
+          Start Your Assessment
+        </button>
       </div>
 
-      {/* SEARCH */}
+      {/* SEARCH BOX */}
       <div style={{
         textAlign: "center",
         marginBottom: "30px"
@@ -60,12 +75,41 @@ export default function Home() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           style={{
-            padding: "14px",
-            width: "350px",
-            borderRadius: "8px",
-            border: "1px solid #ccc"
+            padding: "16px",
+            width: "400px",
+            borderRadius: "10px",
+            border: "1px solid #ccc",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.08)"
           }}
         />
+      </div>
+
+      {/* FEATURED OCCUPATIONS */}
+      <div style={{
+        textAlign: "center",
+        marginBottom: "30px"
+      }}>
+        <p style={{ color: "#666" }}>Popular Searches:</p>
+
+        <div style={{ marginTop: "10px" }}>
+          {["Software Engineer", "Accountant", "Nurse"].map((item) => (
+            <span
+              key={item}
+              onClick={() => setSearch(item)}
+              style={{
+                display: "inline-block",
+                padding: "8px 12px",
+                margin: "5px",
+                background: "#fff",
+                borderRadius: "20px",
+                cursor: "pointer",
+                border: "1px solid #ddd"
+              }}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* RESULTS */}
@@ -108,40 +152,46 @@ export default function Home() {
           marginTop: "20px",
           flexWrap: "wrap"
         }}>
-
-          <div style={{ maxWidth: "200px" }}>
+          <div style={{ maxWidth: "220px" }}>
             <h4>🎯 Accurate Insights</h4>
             <p style={{ color: "#666" }}>
               Real-time state-wise visa availability
             </p>
           </div>
 
-          <div style={{ maxWidth: "200px" }}>
+          <div style={{ maxWidth: "220px" }}>
             <h4>⚡ Instant Results</h4>
             <p style={{ color: "#666" }}>
-              No forms, no waiting — get answers instantly
+              No forms, no waiting — instant answers
             </p>
           </div>
 
-          <div style={{ maxWidth: "200px" }}>
+          <div style={{ maxWidth: "220px" }}>
             <h4>📊 Smart Decisions</h4>
             <p style={{ color: "#666" }}>
               Know your best pathway and chances
             </p>
           </div>
-
         </div>
       </div>
 
-      {/* CTA */}
+      {/* FINAL CTA */}
       <div style={{
         marginTop: "60px",
         textAlign: "center"
       }}>
-        <h2>Ready to Move to Australia?</h2>
-        <p style={{ color: "#666" }}>
-          Start by checking your occupation above
-        </p>
+        <h2>Start Your Migration Journey Today</h2>
+        <button style={{
+          padding: "14px 30px",
+          background: "#16a34a",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          marginTop: "10px"
+        }}>
+          Check My Chances Now
+        </button>
       </div>
 
     </div>

@@ -90,7 +90,7 @@ export default function OccupationPage() {
     };
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbw5pPWoMcFUsNhtQVmfzWeSnaH4D4cqyiMWLdIQlOHM79kb2igQ_RlkFScCZGDDUiJmMg/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycby5c9y8fK9yD2MRqzHd6GBX5_g2d8Peui2bSE0skCujXzTSb2CBd9K24riYzd-CzY_eQw/exec", {
         method: "POST",
         mode: "no-cors", // IMPORTANT
         headers: {

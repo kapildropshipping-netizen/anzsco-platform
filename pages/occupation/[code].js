@@ -8,6 +8,7 @@ export default function OccupationPage() {
 
   const [occupation, setOccupation] = useState(null);
   const [states, setStates] = useState([]);
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     if (code) {
@@ -17,29 +18,27 @@ export default function OccupationPage() {
   }, [code]);
 
   async function fetchOccupation() {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("occupations")
       .select("*")
       .eq("anzsco_code", code)
       .single();
 
-    if (data) setOccupation(data);
-    if (error) console.error(error);
+    setOccupation(data);
   }
 
   async function fetchStates() {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("state_mapping")
       .select("*")
       .eq("anzsco_code", code);
 
-    if (data) setStates(data);
-    if (error) console.error(error);
+    setStates(data || []);
   }
 
   if (!occupation) return <p>Loading...</p>;
 
-  // 🔥 Flexible mapping
+  // normalize
   const normalizedStates = states.map((s) => ({
     id: s.id,
     state: s.state || s.state_name || "N/A",
@@ -47,52 +46,89 @@ export default function OccupationPage() {
     status: s.status || "Unknown",
   }));
 
-  // 🔥 Sort states (Open → Limited → Closed)
+  // sort
   const sortedStates = normalizedStates.sort((a, b) => {
     const order = { Open: 1, Limited: 2, Closed: 3 };
     return order[a.status] - order[b.status];
   });
 
-  // 🔥 Best option
+  // filter
+  const filteredStates =
+    filter === "All"
+      ? sortedStates
+      : sortedStates.filter((s) => s.status === "Open");
+
+  // best option
   const bestState =
     sortedStates.find((s) => s.status === "Open") || sortedStates[0];
 
-  return (
-    <div style={{ padding: "40px", fontFamily: "Arial", background: "#f9fafb", minHeight: "100vh" }}>
-      
-      <h1>{occupation.occupation_name}</h1>
-      <p><strong>ANZSCO Code:</strong> {occupation.anzsco_code}</p>
+  const inputStyle = {
+    display: "block",
+    width: "100%",
+    padding: "10px",
+    marginTop: "10px",
+    borderRadius: "6px",
+    border: "1px solid #ccc"
+  };
 
-      {/* ⭐ BEST OPTION */}
+  return (
+    <div style={{
+      maxWidth: "900px",
+      margin: "0 auto",
+      padding: "30px",
+      fontFamily: "Arial",
+      background: "#f9fafb",
+      minHeight: "100vh"
+    }}>
+      
+      {/* HEADER */}
+      <h1 style={{ fontSize: "32px", marginBottom: "5px" }}>
+        {occupation.occupation_name}
+      </h1>
+
+      <p style={{ color: "#666" }}>
+        ANZSCO Code: {occupation.anzsco_code}
+      </p>
+
+      {/* BEST OPTION */}
       {bestState && (
         <div style={{
-          background: "#e6f7ec",
-          padding: "15px",
-          borderRadius: "8px",
+          background: "linear-gradient(135deg, #d4fc79, #96e6a1)",
+          padding: "18px",
+          borderRadius: "10px",
           marginTop: "20px",
-          marginBottom: "20px"
+          marginBottom: "25px",
+          fontWeight: "bold"
         }}>
-          <strong>⭐ Best Option:</strong> {bestState.state} → {bestState.visa} ({bestState.status})
+          ⭐ Best Pathway: {bestState.state} → {bestState.visa} ({bestState.status})
         </div>
       )}
 
-      <h2 style={{ marginTop: "20px" }}>State Availability</h2>
+      {/* FILTER */}
+      <div style={{ marginBottom: "20px" }}>
+        <button onClick={() => setFilter("All")} style={{ marginRight: "10px" }}>
+          All
+        </button>
+        <button onClick={() => setFilter("Open")}>
+          Open Only
+        </button>
+      </div>
 
-      {sortedStates.length === 0 && <p>No state data available</p>}
+      <h2>State Availability</h2>
 
-      {sortedStates.map((s) => (
+      {/* STATE LIST */}
+      {filteredStates.map((s) => (
         <div key={s.id} style={{
           display: "flex",
           justifyContent: "space-between",
           background: "#fff",
-          padding: "12px",
-          marginBottom: "10px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
+          padding: "14px",
+          marginBottom: "12px",
+          borderRadius: "10px",
+          boxShadow: "0 4px 10px rgba(0,0,0,0.06)"
         }}>
           
           <span><strong>{s.state}</strong></span>
-
           <span>{s.visa}</span>
 
           <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
@@ -107,34 +143,38 @@ export default function OccupationPage() {
                   ? "orange"
                   : "red"
             }}></span>
-
             <span>{s.status}</span>
           </span>
 
         </div>
       ))}
 
-      {/* 🚀 CTA */}
+      {/* LEAD FORM */}
       <div style={{
-        marginTop: "30px",
-        padding: "20px",
+        marginTop: "40px",
+        padding: "25px",
         background: "#fff",
-        borderRadius: "10px",
-        textAlign: "center",
-        boxShadow: "0 2px 6px rgba(0,0,0,0.05)"
+        borderRadius: "12px",
+        boxShadow: "0 4px 12px rgba(0,0,0,0.08)"
       }}>
         <h3>Check Your Eligibility</h3>
-        <p>Get expert guidance for your migration pathway</p>
+        <p>Enter your details to get a personalized migration pathway</p>
+
+        <input placeholder="Your Name" style={inputStyle} />
+        <input placeholder="Email" style={inputStyle} />
+        <input placeholder="Phone" style={inputStyle} />
 
         <button style={{
-          padding: "12px 20px",
-          background: "#000",
-          color: "#fff",
+          marginTop: "15px",
+          padding: "12px",
+          width: "100%",
+          background: "black",
+          color: "white",
           border: "none",
           borderRadius: "6px",
           cursor: "pointer"
         }}>
-          Book Consultation
+          Get My Assessment
         </button>
       </div>
 

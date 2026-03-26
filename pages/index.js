@@ -19,96 +19,83 @@ export default function Home() {
   );
 
   return (
-    <div style={{
-      fontFamily: "Inter, Arial",
-      background: "#f5f7fb",
-      minHeight: "100vh"
-    }}>
+    <div style={{ fontFamily: "Inter, Arial", background: "#f5f7fb" }}>
 
       {/* HEADER */}
       <div style={{
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
         padding: "20px 40px",
-        background: "rgba(255,255,255,0.7)",
-        backdropFilter: "blur(10px)",
-        position: "sticky",
-        top: 0,
-        zIndex: 10
+        background: "#fff",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.05)"
       }}>
-        <strong style={{ fontSize: "18px" }}>ANZSCO Intelligence</strong>
+        <strong>ANZSCO Intelligence</strong>
 
-        <div>
+        <button style={{
+          background: "#ff6b35",
+          color: "#fff",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer"
+        }}>
+          Book Consultation
+        </button>
+      </div>
+
+      {/* HERO WITH IMAGE */}
+      <div style={{
+        backgroundImage: "url('https://images.unsplash.com/photo-1581091215367-59ab6b2c8f7c')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        color: "#fff",
+        padding: "120px 20px",
+        textAlign: "left"
+      }}>
+        <div style={{ maxWidth: "800px" }}>
+          <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>
+            Explore Visa Options For Australia
+          </h1>
+
+          <p style={{ fontSize: "18px", marginBottom: "20px" }}>
+            Trusted by migration professionals — real-time occupation insights & pathways
+          </p>
+
           <button style={{
-            padding: "8px 16px",
-            background: "#000",
+            background: "#ff6b35",
             color: "#fff",
+            padding: "14px 28px",
             border: "none",
-            borderRadius: "6px",
+            borderRadius: "8px",
             cursor: "pointer"
           }}>
-            Book Consultation
+            Start Your Search
           </button>
         </div>
       </div>
 
-      {/* HERO */}
+      {/* TOOL SECTION */}
       <div style={{
-        textAlign: "center",
-        padding: "80px 20px",
-        background: "linear-gradient(135deg, #eef2ff, #f9fafb)"
-      }}>
-        <h1 style={{
-          fontSize: "42px",
-          fontWeight: "700",
-          marginBottom: "10px"
-        }}>
-          Australia PR Intelligence Platform 🇦🇺
-        </h1>
-
-        <p style={{
-          fontSize: "18px",
-          color: "#555",
-          marginBottom: "30px"
-        }}>
-          Real-time insights, state availability & your best migration pathway
-        </p>
-
-        <button style={{
-          padding: "14px 28px",
-          background: "#000",
-          color: "#fff",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-          fontSize: "16px"
-        }}>
-          Check My PR Chances
-        </button>
-      </div>
-
-      {/* SEARCH CARD */}
-      <div style={{
-        maxWidth: "800px",
-        margin: "-40px auto 40px",
+        maxWidth: "900px",
+        margin: "-50px auto 50px",
         background: "#fff",
         padding: "30px",
-        borderRadius: "16px",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.08)"
+        borderRadius: "12px",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
       }}>
-        <h3 style={{ marginBottom: "15px" }}>Search Your Occupation</h3>
+        <h2 style={{ textAlign: "center" }}>ANZSCO Search Tool</h2>
 
         <input
           type="text"
-          placeholder="e.g. Software Engineer"
+          placeholder="Type occupation name..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           style={{
             padding: "14px",
             width: "100%",
-            borderRadius: "10px",
-            border: "1px solid #ddd"
+            marginTop: "20px",
+            borderRadius: "8px",
+            border: "1px solid #ccc"
           }}
         />
 
@@ -119,20 +106,13 @@ export default function Home() {
               href={`/occupation/${item.anzsco_code}`}
               style={{
                 display: "block",
-                padding: "14px",
+                padding: "15px",
                 marginBottom: "10px",
-                borderRadius: "10px",
-                textDecoration: "none",
-                color: "#000",
+                borderRadius: "8px",
                 background: "#f9fafb",
-                transition: "0.2s"
+                textDecoration: "none",
+                color: "#000"
               }}
-              onMouseEnter={(e) =>
-                (e.currentTarget.style.background = "#eef2ff")
-              }
-              onMouseLeave={(e) =>
-                (e.currentTarget.style.background = "#f9fafb")
-              }
             >
               <strong>{item.occupation_name}</strong><br />
               ANZSCO: {item.anzsco_code}
@@ -141,52 +121,90 @@ export default function Home() {
         </div>
       </div>
 
-      {/* TRUST SECTION */}
-      <div style={{
-        maxWidth: "1000px",
-        margin: "40px auto",
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-        gap: "20px"
-      }}>
-        {[
-          "Real-time ANZSCO data",
-          "State-wise insights",
-          "Smart pathway recommendations"
-        ].map((item, i) => (
-          <div key={i} style={{
+      {/* SERVICES SECTION */}
+      <div style={{ padding: "60px 20px", textAlign: "center" }}>
+        <h2>Visa & Migration Services</h2>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          gap: "20px",
+          marginTop: "30px"
+        }}>
+          <div style={{
             background: "#fff",
-            padding: "20px",
-            borderRadius: "12px",
-            boxShadow: "0 6px 16px rgba(0,0,0,0.06)"
+            padding: "30px",
+            borderRadius: "10px",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.05)"
           }}>
-            ✔ {item}
+            <h3>Working & Skilled Visas</h3>
+            <p>Get PR through skilled migration pathways</p>
           </div>
-        ))}
+
+          <div style={{
+            background: "#fff",
+            padding: "30px",
+            borderRadius: "10px",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.05)"
+          }}>
+            <h3>Family & Partner Visas</h3>
+            <p>Join your loved ones in Australia</p>
+          </div>
+        </div>
+
+        <div style={{ marginTop: "30px" }}>
+          <button style={{
+            background: "#ff6b35",
+            color: "#fff",
+            padding: "12px 25px",
+            border: "none",
+            borderRadius: "6px"
+          }}>
+            Book A Consultation
+          </button>
+        </div>
       </div>
 
-      {/* CTA */}
+      {/* BLOG SECTION */}
+      <div style={{ padding: "60px 20px", textAlign: "center" }}>
+        <h2>Migration Insights</h2>
+
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          gap: "20px",
+          marginTop: "30px"
+        }}>
+          {["PR Tips", "Visa Updates", "ANZSCO Guide"].map((item, i) => (
+            <div key={i} style={{
+              background: "#fff",
+              padding: "20px",
+              borderRadius: "10px",
+              boxShadow: "0 6px 20px rgba(0,0,0,0.05)"
+            }}>
+              <h4>{item}</h4>
+              <p>Latest updates and expert insights</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* FINAL CTA */}
       <div style={{
         textAlign: "center",
-        padding: "60px 20px"
+        padding: "60px",
+        background: "#fff"
       }}>
-        <h2 style={{ marginBottom: "10px" }}>
-          Get Your Personalized PR Strategy
-        </h2>
-
-        <p style={{ color: "#666", marginBottom: "20px" }}>
-          Speak with experts and plan your migration journey
-        </p>
+        <h2>Start Your Migration Journey</h2>
 
         <button style={{
-          padding: "14px 30px",
-          background: "#16a34a",
+          background: "#ff6b35",
           color: "#fff",
+          padding: "14px 30px",
           border: "none",
-          borderRadius: "8px",
-          cursor: "pointer"
+          borderRadius: "8px"
         }}>
-          Book Expert Consultation
+          Get My PR Assessment
         </button>
       </div>
 

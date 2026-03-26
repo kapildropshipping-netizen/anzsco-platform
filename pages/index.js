@@ -47,28 +47,28 @@ export default function Home() {
       <div style={{
         position: "relative",
         height: "420px",
-        backgroundImage: "url('https://images.unsplash.com/photo-1581091215367-59ab6b2c8f7c')",
+        backgroundImage: "url('https://images.unsplash.com/photo-1529336953121-ad5a0d43d0d2')",
         backgroundSize: "cover",
         backgroundPosition: "center"
       }}>
 
-        {/* DARK OVERLAY */}
+        {/* GRADIENT OVERLAY */}
         <div style={{
           position: "absolute",
           top: 0,
           left: 0,
           width: "100%",
           height: "100%",
-          background: "rgba(0,0,0,0.55)"
+          background: "linear-gradient(90deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0) 100%)"
         }} />
 
-        {/* CONTENT */}
+        {/* HERO CONTENT */}
         <div style={{
           position: "relative",
           zIndex: 2,
           color: "#fff",
           padding: "80px 40px",
-          maxWidth: "800px"
+          maxWidth: "700px"
         }}>
           <h1 style={{
             fontSize: "42px",
@@ -81,7 +81,7 @@ export default function Home() {
           <p style={{
             fontSize: "18px",
             marginBottom: "20px",
-            color: "#e5e7eb"
+            color: "#f1f5f9"
           }}>
             Trusted by migration professionals — real-time occupation insights & pathways
           </p>
@@ -99,14 +99,15 @@ export default function Home() {
         </div>
       </div>
 
-      {/* SEARCH CARD (OVERLAP EFFECT) */}
+      {/* SEARCH CARD */}
       <div style={{
         maxWidth: "900px",
         margin: "-80px auto 50px",
         background: "#fff",
         padding: "30px",
         borderRadius: "12px",
-        boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
+        border: "1px solid #eee",
+        boxShadow: "0 20px 40px rgba(0,0,0,0.08)"
       }}>
         <h2 style={{ textAlign: "center" }}>ANZSCO Search Tool</h2>
 
@@ -137,7 +138,7 @@ export default function Home() {
                 background: "#f9fafb",
                 textDecoration: "none",
                 color: "#000",
-                transition: "0.2s"
+                transition: "all 0.2s ease"
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-2px)";

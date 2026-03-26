@@ -66,7 +66,7 @@ export default function OccupationPage() {
   const bestState =
     sortedStates.find((s) => s.status === "Open") || sortedStates[0];
 
-  // 🎯 LEAD SCORE
+  // 🎯 SCORE
   const score =
     bestState?.status === "Open"
       ? "High"
@@ -74,7 +74,7 @@ export default function OccupationPage() {
       ? "Medium"
       : "Low";
 
-  // 🚀 GOOGLE SHEETS SUBMIT
+  // 🚀 SUBMIT TO GOOGLE SHEET
   async function handleSubmit() {
     if (!name || !email || !phone) {
       alert("Please fill all fields");
@@ -86,13 +86,13 @@ export default function OccupationPage() {
       email,
       phone,
       occupation: occupation.occupation_name,
-      score
+      score,
     };
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbwRn3X56tXjdcG_T7sUdkI47HXoBWo1TWYgiUjsh9VgfQKSmLxe_w4cHb9OE4YWxiSVQA/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycbw5pPWoMcFUsNhtQVmfzWeSnaH4D4cqyiMWLdIQlOHM79kb2igQ_RlkFScCZGDDUiJmMg/exec", {
         method: "POST",
-        mode: "no-cors", // required
+        mode: "no-cors", // IMPORTANT
         headers: {
           "Content-Type": "application/json",
         },
@@ -153,7 +153,7 @@ export default function OccupationPage() {
         </div>
       )}
 
-      {/* 🎯 SCORE */}
+      {/* SCORE */}
       <div style={{
         marginBottom: "20px",
         fontWeight: "bold"
@@ -173,7 +173,7 @@ export default function OccupationPage() {
 
       <h2>State Availability</h2>
 
-      {/* STATE LIST */}
+      {/* STATES */}
       {filteredStates.map((s) => (
         <div key={s.id} style={{
           display: "flex",

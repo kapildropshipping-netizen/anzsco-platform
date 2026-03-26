@@ -18,6 +18,15 @@ export default function Home() {
     item.occupation_name?.toLowerCase().includes(search.toLowerCase())
   );
 
+  const cardStyle = {
+    background: "#fff",
+    padding: "25px",
+    borderRadius: "12px",
+    boxShadow: "0 6px 20px rgba(0,0,0,0.05)",
+    transition: "all 0.2s ease",
+    cursor: "pointer"
+  };
+
   return (
     <div style={{ fontFamily: "Inter, Arial", background: "#f5f7fb" }}>
 
@@ -52,7 +61,6 @@ export default function Home() {
         backgroundPosition: "center"
       }}>
 
-        {/* GRADIENT OVERLAY */}
         <div style={{
           position: "absolute",
           top: 0,
@@ -62,7 +70,6 @@ export default function Home() {
           background: "linear-gradient(90deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0) 100%)"
         }} />
 
-        {/* HERO CONTENT */}
         <div style={{
           position: "relative",
           zIndex: 2,
@@ -70,23 +77,16 @@ export default function Home() {
           padding: "100px 40px",
           maxWidth: "700px"
         }}>
-          <h1 style={{
-            fontSize: "42px",
-            fontWeight: "700",
-            marginBottom: "10px"
-          }}>
+          <h1 style={{ fontSize: "42px", fontWeight: "700" }}>
             Explore Visa Options For Australia
           </h1>
 
-          <p style={{
-            fontSize: "18px",
-            marginBottom: "20px",
-            color: "#f1f5f9"
-          }}>
+          <p style={{ fontSize: "18px", marginTop: "10px", color: "#f1f5f9" }}>
             Trusted by migration professionals — real-time occupation insights & pathways
           </p>
 
           <button style={{
+            marginTop: "20px",
             background: "#ff6b35",
             color: "#fff",
             padding: "14px 28px",
@@ -139,16 +139,7 @@ export default function Home() {
                 borderRadius: "8px",
                 background: "#f9fafb",
                 textDecoration: "none",
-                color: "#000",
-                transition: "all 0.2s ease"
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = "translateY(-2px)";
-                e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.1)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = "translateY(0)";
-                e.currentTarget.style.boxShadow = "none";
+                color: "#000"
               }}
             >
               <strong>{item.occupation_name}</strong><br />
@@ -167,28 +158,35 @@ export default function Home() {
           gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
           gap: "20px",
           marginTop: "30px",
-          maxWidth: "1000px",
+          maxWidth: "1100px",
           marginInline: "auto"
         }}>
-          <div style={{
-            background: "#fff",
-            padding: "30px",
-            borderRadius: "10px",
-            boxShadow: "0 6px 20px rgba(0,0,0,0.05)"
-          }}>
-            <h3>Working & Skilled Visas</h3>
-            <p>Get PR through skilled migration pathways</p>
-          </div>
 
-          <div style={{
-            background: "#fff",
-            padding: "30px",
-            borderRadius: "10px",
-            boxShadow: "0 6px 20px rgba(0,0,0,0.05)"
-          }}>
-            <h3>Family & Partner Visas</h3>
-            <p>Join your loved ones in Australia</p>
-          </div>
+          {[
+            ["Skilled PR Visas", "189, 190, 491 visa pathways"],
+            ["State Nomination Strategy", "Find best state options"],
+            ["Occupation Assessment", "Check ANZSCO eligibility"],
+            ["Partner & Family Visas", "Join your loved ones"],
+            ["Student to PR Pathway", "Convert study visa to PR"],
+            ["1:1 Consultation", "Personalized migration strategy"]
+          ].map(([title, desc], i) => (
+            <div
+              key={i}
+              style={cardStyle}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-5px)";
+                e.currentTarget.style.boxShadow = "0 12px 30px rgba(0,0,0,0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 6px 20px rgba(0,0,0,0.05)";
+              }}
+            >
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </div>
+          ))}
+
         </div>
 
         <button style={{

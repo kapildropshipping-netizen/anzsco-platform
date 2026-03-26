@@ -37,28 +37,35 @@ export default function OccupationPage() {
 
   if (!occupation) return <p>Loading...</p>;
 
-  return (
-    <div style={{ padding: "40px", fontFamily: "Arial" }}>
-      
-      <h1>{occupation.occupation_name}</h1>
+ return (
+  <div style={{ padding: "40px", fontFamily: "Arial" }}>
+    
+    <h1>{occupation.occupation_name}</h1>
 
-      <p><strong>ANZSCO Code:</strong> {occupation.anzsco_code}</p>
+    <p><strong>ANZSCO Code:</strong> {occupation.anzsco_code}</p>
 
-      <h2 style={{ marginTop: "30px" }}>State Availability</h2>
+    <h2 style={{ marginTop: "30px" }}>State Availability</h2>
 
-      {states.length === 0 && <p>No state data available</p>}
-
-      {states.map((s) => (
-        <div key={s.id} style={{
-          background: "#f1f1f1",
-          padding: "10px",
-          marginBottom: "10px",
-          borderRadius: "6px"
+    {states.map((s) => (
+      <div key={s.id} style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        background: '#fff',
+        padding: '12px',
+        marginBottom: '10px',
+        borderRadius: '8px',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+      }}>
+        <span><strong>{s.state}</strong></span>
+        <span>{s.visa_type}</span>
+        <span style={{
+          color: s.status === 'Open' ? 'green' : s.status === 'Limited' ? 'orange' : 'red'
         }}>
-          <strong>{s.state}</strong> → {s.visa_type} → {s.status}
-        </div>
-      ))}
+          {s.status}
+        </span>
+      </div>
+    ))}
 
-    </div>
-  );
+  </div>
+);
 }

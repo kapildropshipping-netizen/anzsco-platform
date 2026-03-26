@@ -44,8 +44,18 @@ export default function Home() {
         }}
       />
 
-      {filtered.map((item) => (
-        <div key={item.id} style={{
+     {filtered.map((item) => (
+  <div
+    key={item.id}
+    onClick={() => window.location.href = `/occupation/${item.anzsco_code}`}
+    style={{
+      background: '#fff',
+      padding: '15px',
+      marginBottom: '10px',
+      borderRadius: '8px',
+      cursor: 'pointer'
+    }}
+  >
           background: '#fff',
           padding: '15px',
           marginBottom: '10px',

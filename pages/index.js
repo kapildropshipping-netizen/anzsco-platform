@@ -48,8 +48,7 @@ export default function Home() {
           borderRadius: "6px",
           cursor: "pointer"
         }}>
-          Book Consultation
-        </button>
+Book Consultation        </button>
       </div>
 
       {/* HERO */}
@@ -94,8 +93,8 @@ export default function Home() {
             borderRadius: "8px",
             cursor: "pointer"
           }}>
-            Start Your Search
-          </button>
+Check My PR Chances
+  </button>
         </div>
       </div>
 
@@ -199,8 +198,7 @@ export default function Home() {
           border: "none",
           borderRadius: "6px"
         }}>
-          Book A Consultation
-        </button>
+Book Consultation        </button>
       </div>
 
       {/* BLOG */}
@@ -244,7 +242,7 @@ export default function Home() {
           border: "none",
           borderRadius: "8px"
         }}>
-          Get My PR Assessment
+Check My PR Chances
         </button>
       </div>
 

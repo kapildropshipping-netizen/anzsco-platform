@@ -163,13 +163,15 @@ export default function Home() {
         }}>
 
           {[
-            ["Skilled PR Visas", "189, 190, 491 visa pathways"],
-            ["State Nomination Strategy", "Find best state options"],
-            ["Occupation Assessment", "Check ANZSCO eligibility"],
-            ["Partner & Family Visas", "Join your loved ones"],
-            ["Student to PR Pathway", "Convert study visa to PR"],
-            ["1:1 Consultation", "Personalized migration strategy"]
-          ].map(([title, desc], i) => (
+  ["Skilled PR Visas", "189, 190, 491 visa pathways"],
+  ["State Nomination Strategy", "Find best state options"],
+  ["Occupation Assessment", "Check ANZSCO eligibility"],
+  ["Partner & Family Visas", "Join your loved ones"],
+  ["Student to PR Pathway", "Convert study visa to PR"],
+  ["1:1 Consultation", "Personalized migration strategy"],
+  ["Visa Refusal Assistance", "Handle refusals & reapply strategically"],
+  ["Employer Sponsored Visas", "482, 186 pathways with job support"]
+].map(([title, desc], i) => (
             <div
               key={i}
               style={cardStyle}

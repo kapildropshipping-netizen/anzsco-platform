@@ -10,6 +10,11 @@ export default function OccupationPage() {
   const [states, setStates] = useState([]);
   const [filter, setFilter] = useState("All");
 
+  // 👇 FORM STATES
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+
   useEffect(() => {
     if (code) {
       fetchOccupation();
@@ -70,6 +75,18 @@ export default function OccupationPage() {
     borderRadius: "6px",
     border: "1px solid #ccc"
   };
+
+  // 🚀 WHATSAPP FUNCTION
+  function handleSubmit() {
+    if (!name || !email || !phone) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const message = `New Lead:%0AName: ${name}%0AEmail: ${email}%0APhone: ${phone}%0AOccupation: ${occupation.occupation_name}`;
+
+    window.open(`https://wa.me/918929130355?text=${message}`);
+  }
 
   return (
     <div style={{
@@ -160,20 +177,40 @@ export default function OccupationPage() {
         <h3>Check Your Eligibility</h3>
         <p>Enter your details to get a personalized migration pathway</p>
 
-        <input placeholder="Your Name" style={inputStyle} />
-        <input placeholder="Email" style={inputStyle} />
-        <input placeholder="Phone" style={inputStyle} />
+        <input
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          style={inputStyle}
+        />
 
-        <button style={{
-          marginTop: "15px",
-          padding: "12px",
-          width: "100%",
-          background: "black",
-          color: "white",
-          border: "none",
-          borderRadius: "6px",
-          cursor: "pointer"
-        }}>
+        <input
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={inputStyle}
+        />
+
+        <input
+          placeholder="Phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          style={inputStyle}
+        />
+
+        <button
+          onClick={handleSubmit}
+          style={{
+            marginTop: "15px",
+            padding: "12px",
+            width: "100%",
+            background: "black",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer"
+          }}
+        >
           Get My Assessment
         </button>
       </div>

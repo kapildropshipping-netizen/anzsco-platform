@@ -56,13 +56,25 @@ export default function OccupationPage() {
         borderRadius: '8px',
         boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
       }}>
-        <span><strong>{s.state}</strong></span>
-        <span>{s.visa_type}</span>
-        <span style={{
-          color: s.status === 'Open' ? 'green' : s.status === 'Limited' ? 'orange' : 'red'
-        }}>
-          {s.status}
-        </span>
+       <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+  
+  <span style={{
+    width: '10px',
+    height: '10px',
+    borderRadius: '50%',
+    backgroundColor:
+      s.status === 'Open'
+        ? 'green'
+        : s.status === 'Limited'
+        ? 'orange'
+        : 'red'
+  }}></span>
+
+  <span>
+    {s.status}
+  </span>
+
+</span>
       </div>
     ))}
 

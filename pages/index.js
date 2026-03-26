@@ -15,6 +15,7 @@ export default function Home() {
       .select("*");
 
     if (data) setOccupations(data);
+    if (error) console.error(error);
   }
 
   const filtered = occupations.filter((item) =>
@@ -44,27 +45,26 @@ export default function Home() {
         }}
       />
 
-     {filtered.map((item) => (
-  <div
-    key={item.id}
-    onClick={() => window.location.href = `/occupation/${item.anzsco_code}`}
-    style={{
-      background: '#fff',
-      padding: '15px',
-      marginBottom: '10px',
-      borderRadius: '8px',
-      cursor: 'pointer'
-    }}
-  >
-          background: '#fff',
-          padding: '15px',
-          marginBottom: '10px',
-          borderRadius: '8px'
-        }}>
+      {filtered.map((item) => (
+        <a
+          key={item.id}
+          href={`/occupation/${item.anzsco_code}`}
+          style={{
+            display: 'block',
+            background: '#fff',
+            padding: '15px',
+            marginBottom: '10px',
+            borderRadius: '8px',
+            textDecoration: 'none',
+            color: 'black',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+          }}
+        >
           <strong>{item.occupation_name}</strong><br />
           ANZSCO: {item.anzsco_code}
-        </div>
+        </a>
       ))}
+
     </div>
   );
 }

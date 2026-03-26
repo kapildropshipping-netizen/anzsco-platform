@@ -62,7 +62,7 @@ export default function OccupationPage() {
   const bestState =
     sortedStates.find((s) => s.status === "Open") || sortedStates[0];
 
-  // ✅ FIXED GOOGLE SHEETS FUNCTION
+  // 🚀 FINAL WORKING SUBMIT (NO ERROR VERSION)
   async function handleSubmit() {
     if (!name || !email || !phone) {
       alert("Please fill all fields");
@@ -79,6 +79,7 @@ export default function OccupationPage() {
     try {
       await fetch("https://script.google.com/macros/s/AKfycbwRn3X56tXjdcG_T7sUdkI47HXoBWo1TWYgiUjsh9VgfQKSmLxe_w4cHb9OE4YWxiSVQA/exec", {
         method: "POST",
+        mode: "no-cors", // 🔥 THIS FIXES ERROR
         headers: {
           "Content-Type": "application/json",
         },

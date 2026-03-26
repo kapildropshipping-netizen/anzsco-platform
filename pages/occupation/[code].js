@@ -47,37 +47,37 @@ export default function OccupationPage() {
     <h2 style={{ marginTop: "30px" }}>State Availability</h2>
 
     {states.map((s) => (
-      <div key={s.id} style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        background: '#fff',
-        padding: '12px',
-        marginBottom: '10px',
-        borderRadius: '8px',
-        boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
-      }}>
-       <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-  
-  <span style={{
-    width: '10px',
-    height: '10px',
-    borderRadius: '50%',
-    backgroundColor:
-      s.status === 'Open'
-        ? 'green'
-        : s.status === 'Limited'
-        ? 'orange'
-        : 'red'
-  }}></span>
+  <div key={s.id} style={{
+    display: 'flex',
+    justifyContent: 'space-between',
+    background: '#fff',
+    padding: '12px',
+    marginBottom: '10px',
+    borderRadius: '8px',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.05)'
+  }}>
+    
+    <span><strong>{s.state}</strong></span>
 
-  <span>
-    {s.status}
-  </span>
+    <span>{s.visa_type}</span>
 
-</span>
-      </div>
-    ))}
+    <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+      <span style={{
+        width: '10px',
+        height: '10px',
+        borderRadius: '50%',
+        backgroundColor:
+          s.status === 'Open'
+            ? 'green'
+            : s.status === 'Limited'
+            ? 'orange'
+            : 'red'
+      }}></span>
+
+      <span>{s.status}</span>
+    </span>
 
   </div>
+))}
 );
 }

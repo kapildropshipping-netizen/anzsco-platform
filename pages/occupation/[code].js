@@ -77,7 +77,7 @@ export default function OccupationPage() {
     };
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbwATivFF_kP117wvb4G0gX5B-4mPHbnPpH_777MKvXrZKn8mAI3Hoo1EGnmYP9SHRbeQQ/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycbwRn3X56tXjdcG_T7sUdkI47HXoBWo1TWYgiUjsh9VgfQKSmLxe_w4cHb9OE4YWxiSVQA/exec", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

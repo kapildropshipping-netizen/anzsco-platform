@@ -43,21 +43,46 @@ export default function Home() {
         </button>
       </div>
 
-      {/* HERO WITH IMAGE */}
+      {/* HERO */}
       <div style={{
+        position: "relative",
+        height: "420px",
         backgroundImage: "url('https://images.unsplash.com/photo-1581091215367-59ab6b2c8f7c')",
         backgroundSize: "cover",
-        backgroundPosition: "center",
-        color: "#fff",
-        padding: "120px 20px",
-        textAlign: "left"
+        backgroundPosition: "center"
       }}>
-        <div style={{ maxWidth: "800px" }}>
-          <h1 style={{ fontSize: "42px", marginBottom: "10px" }}>
+
+        {/* DARK OVERLAY */}
+        <div style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(0,0,0,0.55)"
+        }} />
+
+        {/* CONTENT */}
+        <div style={{
+          position: "relative",
+          zIndex: 2,
+          color: "#fff",
+          padding: "80px 40px",
+          maxWidth: "800px"
+        }}>
+          <h1 style={{
+            fontSize: "42px",
+            fontWeight: "700",
+            marginBottom: "10px"
+          }}>
             Explore Visa Options For Australia
           </h1>
 
-          <p style={{ fontSize: "18px", marginBottom: "20px" }}>
+          <p style={{
+            fontSize: "18px",
+            marginBottom: "20px",
+            color: "#e5e7eb"
+          }}>
             Trusted by migration professionals — real-time occupation insights & pathways
           </p>
 
@@ -74,14 +99,14 @@ export default function Home() {
         </div>
       </div>
 
-      {/* TOOL SECTION */}
+      {/* SEARCH CARD (OVERLAP EFFECT) */}
       <div style={{
         maxWidth: "900px",
-        margin: "-50px auto 50px",
+        margin: "-80px auto 50px",
         background: "#fff",
         padding: "30px",
         borderRadius: "12px",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
+        boxShadow: "0 20px 40px rgba(0,0,0,0.1)"
       }}>
         <h2 style={{ textAlign: "center" }}>ANZSCO Search Tool</h2>
 
@@ -111,7 +136,16 @@ export default function Home() {
                 borderRadius: "8px",
                 background: "#f9fafb",
                 textDecoration: "none",
-                color: "#000"
+                color: "#000",
+                transition: "0.2s"
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = "translateY(-2px)";
+                e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.1)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "none";
               }}
             >
               <strong>{item.occupation_name}</strong><br />
@@ -121,7 +155,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* SERVICES SECTION */}
+      {/* SERVICES */}
       <div style={{ padding: "60px 20px", textAlign: "center" }}>
         <h2>Visa & Migration Services</h2>
 
@@ -129,7 +163,9 @@ export default function Home() {
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
           gap: "20px",
-          marginTop: "30px"
+          marginTop: "30px",
+          maxWidth: "1000px",
+          marginInline: "auto"
         }}>
           <div style={{
             background: "#fff",
@@ -152,20 +188,19 @@ export default function Home() {
           </div>
         </div>
 
-        <div style={{ marginTop: "30px" }}>
-          <button style={{
-            background: "#ff6b35",
-            color: "#fff",
-            padding: "12px 25px",
-            border: "none",
-            borderRadius: "6px"
-          }}>
-            Book A Consultation
-          </button>
-        </div>
+        <button style={{
+          marginTop: "30px",
+          background: "#ff6b35",
+          color: "#fff",
+          padding: "12px 25px",
+          border: "none",
+          borderRadius: "6px"
+        }}>
+          Book A Consultation
+        </button>
       </div>
 
-      {/* BLOG SECTION */}
+      {/* BLOG */}
       <div style={{ padding: "60px 20px", textAlign: "center" }}>
         <h2>Migration Insights</h2>
 
@@ -173,7 +208,9 @@ export default function Home() {
           display: "grid",
           gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
           gap: "20px",
-          marginTop: "30px"
+          marginTop: "30px",
+          maxWidth: "1000px",
+          marginInline: "auto"
         }}>
           {["PR Tips", "Visa Updates", "ANZSCO Guide"].map((item, i) => (
             <div key={i} style={{

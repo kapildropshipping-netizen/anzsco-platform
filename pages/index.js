@@ -1,10 +1,6 @@
-import { useEffect, useState, useRef } from "react";
-import { supabase } from "../lib/supabase";
+import { useState } from "react";
 
 export default function Home() {
-  const [occupations, setOccupations] = useState([]);
-  const [search, setSearch] = useState("");
-
   const [showModal, setShowModal] = useState(false);
   const [source, setSource] = useState("");
 
@@ -18,23 +14,7 @@ export default function Home() {
     experience: ""
   });
 
-  const searchRef = useRef(null);
-
-  useEffect(() => {
-    fetchOccupations();
-  }, []);
-
-  async function fetchOccupations() {
-    const { data } = await supabase.from("occupations").select("*");
-    setOccupations(data || []);
-  }
-
-  function scrollToSearch() {
-    searchRef.current?.scrollIntoView({ behavior: "smooth" });
-    setTimeout(() => setShowModal(true), 600);
-  }
-
-  // ✅ LEAD SCORING
+  // ✅ Lead scoring
   function calculateScore(data) {
     let score = 0;
 
@@ -56,31 +36,22 @@ export default function Home() {
   async function handleSubmit() {
     const leadScore = calculateScore(form);
 
-    await fetch(
-      "https://script.google.com/macros/s/AKfycbw5pPWoMcFUsNhtQVmfzWeSnaH4D4cqyiMWLdIQlOHM79kb2igQ_RlkFScCZGDDUiJmMg/exec",
-      {
-        method: "POST",
-        mode: "no-cors",
-        body: JSON.stringify({
-          ...form,
-          source,
-          score: leadScore
-        })
-      }
-    );
+    const payload = {
+      ...form,
+      score: leadScore,
+      source
+    };
+
+    console.log(payload);
+
+    await fetch("YOUR_GOOGLE_SCRIPT_URL", {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify(payload)
+    });
 
     alert(`Submitted! Lead Quality: ${leadScore}`);
-
     setShowModal(false);
-    setForm({
-      name: "",
-      email: "",
-      phone: "",
-      age: "",
-      qualification: "",
-      occupation: "",
-      experience: ""
-    });
   }
 
   const inputStyle = {
@@ -88,19 +59,19 @@ export default function Home() {
     padding: "12px",
     marginTop: "10px",
     borderRadius: "8px",
-    border: "1px solid #ddd",
-    fontSize: "14px"
+    border: "1px solid #ddd"
   };
 
   return (
-    <div style={{ fontFamily: "Inter, sans-serif", background: "#f5f7fb" }}>
+    <div style={{ fontFamily: "Inter, sans-serif", background: "#f6f8fb" }}>
 
       {/* HEADER */}
       <div style={{
         display: "flex",
         justifyContent: "space-between",
-        padding: "20px 40px",
-        background: "#fff"
+        padding: "18px 40px",
+        background: "#fff",
+        borderBottom: "1px solid #eee"
       }}>
         <strong>ANZSCO Intelligence</strong>
 
@@ -112,7 +83,7 @@ export default function Home() {
           style={{
             background: "#ff6b35",
             color: "#fff",
-            padding: "10px 20px",
+            padding: "10px 18px",
             border: "none",
             borderRadius: "6px",
             cursor: "pointer"
@@ -122,34 +93,33 @@ export default function Home() {
         </button>
       </div>
 
-      {/* HERO */}
+      {/* HERO (FIXED HEIGHT + NO OVERLAP) */}
       <div style={{
-        position: "relative",
-        height: "520px",
-        background: "#222",
-        color: "#fff",
-        padding: "100px 40px"
+        textAlign: "center",
+        padding: "80px 20px",
+        background: "#111",
+        color: "#fff"
       }}>
-        <h1 style={{ fontSize: "42px" }}>
-          Explore Visa Options For Australia
+        <h1 style={{ fontSize: "40px", marginBottom: "10px" }}>
+          Australia PR Intelligence Platform
         </h1>
 
-        <p style={{ marginTop: "10px", opacity: 0.8 }}>
-          Real-time insights & smart migration pathways
+        <p style={{ opacity: 0.8 }}>
+          Real-time insights • Smart pathways • Better decisions
         </p>
 
         <button
           onClick={() => {
             setSource("check");
-            scrollToSearch();
+            setShowModal(true);
           }}
           style={{
-            marginTop: "20px",
-            padding: "14px 28px",
+            marginTop: "25px",
+            padding: "14px 30px",
             background: "#ff6b35",
-            border: "none",
             color: "#fff",
-            borderRadius: "6px",
+            border: "none",
+            borderRadius: "8px",
             cursor: "pointer"
           }}
         >
@@ -157,37 +127,32 @@ export default function Home() {
         </button>
       </div>
 
-      {/* SEARCH */}
-      <div
-        ref={searchRef}
-        style={{
-          maxWidth: "900px",
-          margin: "-60px auto",
-          background: "#fff",
-          padding: "30px",
-          borderRadius: "12px",
-          boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
-        }}
-      >
-        <h3>ANZSCO Search Tool</h3>
+      {/* SEARCH (NO OVERLAP NOW) */}
+      <div style={{
+        maxWidth: "700px",
+        margin: "40px auto",
+        background: "#fff",
+        padding: "25px",
+        borderRadius: "12px",
+        boxShadow: "0 10px 30px rgba(0,0,0,0.08)"
+      }}>
+        <h3 style={{ marginBottom: "10px" }}>Search Occupation</h3>
 
         <input
-          placeholder="Search occupation..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Type occupation (e.g. Software Engineer)"
           style={inputStyle}
         />
       </div>
 
       {/* SERVICES */}
-      <div style={{ padding: "80px 40px", textAlign: "center" }}>
+      <div style={{ padding: "60px 40px", textAlign: "center" }}>
         <h2>Visa & Migration Services</h2>
 
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(4,1fr)",
           gap: "20px",
-          marginTop: "40px"
+          marginTop: "30px"
         }}>
           {[
             "Skilled Migration",
@@ -197,28 +162,26 @@ export default function Home() {
           ].map((item) => (
             <div key={item} style={{
               background: "#fff",
-              padding: "30px",
+              padding: "25px",
               borderRadius: "12px",
               boxShadow: "0 5px 15px rgba(0,0,0,0.05)"
             }}>
               <h4>{item}</h4>
-              <p style={{ color: "#666" }}>
-                Expert guidance for {item}
-              </p>
+              <p style={{ color: "#666" }}>Expert help for {item}</p>
             </div>
           ))}
         </div>
       </div>
 
       {/* BLOG */}
-      <div style={{ padding: "80px 40px", background: "#fff" }}>
+      <div style={{ padding: "60px 40px", background: "#fff" }}>
         <h2 style={{ textAlign: "center" }}>Migration Insights</h2>
 
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(3,1fr)",
           gap: "20px",
-          marginTop: "40px"
+          marginTop: "30px"
         }}>
           {[1,2,3].map((i) => (
             <div key={i} style={{
@@ -227,7 +190,7 @@ export default function Home() {
               borderRadius: "10px"
             }}>
               <h4>PR Update {i}</h4>
-              <p>Latest visa insights & updates</p>
+              <p>Latest visa insights</p>
             </div>
           ))}
         </div>
@@ -242,11 +205,10 @@ export default function Home() {
           }}
           style={{
             padding: "14px 30px",
-            background: "#ff6b35",
+            background: "#000",
             color: "#fff",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer"
+            borderRadius: "8px",
+            border: "none"
           }}
         >
           Book Consultation
@@ -260,17 +222,16 @@ export default function Home() {
           top: 0,
           width: "100%",
           height: "100%",
-          background: "rgba(0,0,0,0.4)",
+          background: "rgba(0,0,0,0.5)",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
-          zIndex: 999
+          alignItems: "center"
         }}>
           <div style={{
             background: "#fff",
             padding: "30px",
             borderRadius: "12px",
-            width: "400px"
+            width: "380px"
           }}>
             <h3>
               {source === "consultation"
@@ -302,17 +263,20 @@ export default function Home() {
             <input placeholder="Occupation" style={inputStyle}
               onChange={(e)=>setForm({...form,occupation:e.target.value})} />
 
-            <input placeholder="Years Experience" type="number" style={inputStyle}
+            <input placeholder="Experience (years)" type="number" style={inputStyle}
               onChange={(e)=>setForm({...form,experience:e.target.value})} />
 
             <button onClick={handleSubmit}
-              style={{ marginTop: "15px", width: "100%", padding: "12px", background: "#ff6b35", color: "#fff" }}>
+              style={{
+                marginTop: "15px",
+                width: "100%",
+                padding: "12px",
+                background: "#ff6b35",
+                color: "#fff",
+                border: "none",
+                borderRadius: "8px"
+              }}>
               Submit
-            </button>
-
-            <button onClick={()=>setShowModal(false)}
-              style={{ marginTop: "10px", width: "100%" }}>
-              Cancel
             </button>
           </div>
         </div>

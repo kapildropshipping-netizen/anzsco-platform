@@ -44,7 +44,7 @@ export default function Home() {
 
     console.log(payload);
 
-    await fetch("YOUR_GOOGLE_SCRIPT_URL", {
+    await fetch("https://script.google.com/macros/s/AKfycbwhhNUMWf4n-1aWGJWBcH1xrZ4bTNP5gitrLs3F5hHqVvNpaJ73IHyusDdtuxGltkYXeA/exec", {
       method: "POST",
       mode: "no-cors",
       body: JSON.stringify(payload)

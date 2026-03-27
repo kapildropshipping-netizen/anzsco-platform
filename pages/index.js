@@ -18,7 +18,7 @@ export default function Home() {
   function calculateScore(data) {
     let score = 0;
 
-    if (data.age && Number(data.age) < 35) score += 2;
+    if (Number(data.age) < 35) score += 2;
 
     if (
       data.qualification === "Graduate" ||
@@ -26,7 +26,7 @@ export default function Home() {
       data.qualification === "PhD"
     ) score += 2;
 
-    if (data.experience && Number(data.experience) >= 8) score += 2;
+    if (Number(data.experience) >= 8) score += 2;
 
     if (score >= 5) return "High";
     if (score >= 3) return "Medium";
@@ -58,7 +58,7 @@ export default function Home() {
     width: "100%",
     padding: "12px",
     marginTop: "10px",
-    borderRadius: "8px",
+    borderRadius: "10px",
     border: "1px solid #ddd"
   };
 
@@ -85,7 +85,7 @@ export default function Home() {
             color: "#fff",
             padding: "10px 18px",
             border: "none",
-            borderRadius: "6px",
+            borderRadius: "8px",
             cursor: "pointer"
           }}
         >
@@ -93,18 +93,21 @@ export default function Home() {
         </button>
       </div>
 
-      {/* HERO (FIXED HEIGHT + NO OVERLAP) */}
+      {/* HERO */}
       <div style={{
         textAlign: "center",
-        padding: "80px 20px",
-        background: "#111",
+        padding: "100px 20px",
+        background: "linear-gradient(135deg,#0f172a,#1e293b)",
         color: "#fff"
       }}>
-        <h1 style={{ fontSize: "40px", marginBottom: "10px" }}>
+        <h1 style={{
+          fontSize: "48px",
+          fontWeight: "700"
+        }}>
           Australia PR Intelligence Platform
         </h1>
 
-        <p style={{ opacity: 0.8 }}>
+        <p style={{ opacity: 0.7 }}>
           Real-time insights • Smart pathways • Better decisions
         </p>
 
@@ -119,24 +122,25 @@ export default function Home() {
             background: "#ff6b35",
             color: "#fff",
             border: "none",
-            borderRadius: "8px",
-            cursor: "pointer"
+            borderRadius: "10px",
+            cursor: "pointer",
+            boxShadow: "0 10px 30px rgba(255,107,53,0.4)"
           }}
         >
           Check My PR Chances
         </button>
       </div>
 
-      {/* SEARCH (NO OVERLAP NOW) */}
+      {/* SEARCH */}
       <div style={{
         maxWidth: "700px",
-        margin: "40px auto",
+        margin: "-50px auto 50px",
         background: "#fff",
-        padding: "25px",
-        borderRadius: "12px",
-        boxShadow: "0 10px 30px rgba(0,0,0,0.08)"
+        padding: "30px",
+        borderRadius: "16px",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.12)"
       }}>
-        <h3 style={{ marginBottom: "10px" }}>Search Occupation</h3>
+        <h3>Search Occupation</h3>
 
         <input
           placeholder="Type occupation (e.g. Software Engineer)"
@@ -160,12 +164,24 @@ export default function Home() {
             "State Nomination",
             "Partner Visa"
           ].map((item) => (
-            <div key={item} style={{
-              background: "#fff",
-              padding: "25px",
-              borderRadius: "12px",
-              boxShadow: "0 5px 15px rgba(0,0,0,0.05)"
-            }}>
+            <div key={item}
+              style={{
+                background: "#fff",
+                padding: "28px",
+                borderRadius: "16px",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.06)",
+                transition: "0.3s",
+                cursor: "pointer"
+              }}
+              onMouseOver={(e)=>{
+                e.currentTarget.style.transform = "translateY(-8px)";
+                e.currentTarget.style.boxShadow = "0 20px 50px rgba(0,0,0,0.12)";
+              }}
+              onMouseOut={(e)=>{
+                e.currentTarget.style.transform = "translateY(0)";
+                e.currentTarget.style.boxShadow = "0 10px 30px rgba(0,0,0,0.06)";
+              }}
+            >
               <h4>{item}</h4>
               <p style={{ color: "#666" }}>Expert help for {item}</p>
             </div>
@@ -185,29 +201,47 @@ export default function Home() {
         }}>
           {[1,2,3].map((i) => (
             <div key={i} style={{
-              background: "#f5f5f5",
+              background: "#fff",
               padding: "20px",
-              borderRadius: "10px"
+              borderRadius: "16px",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.05)"
             }}>
+              <div style={{
+                height: "120px",
+                background: "#e5e7eb",
+                borderRadius: "10px",
+                marginBottom: "12px"
+              }}></div>
+
               <h4>PR Update {i}</h4>
-              <p>Latest visa insights</p>
+              <p style={{ color: "#666" }}>
+                Latest migration updates & insights
+              </p>
             </div>
           ))}
         </div>
       </div>
 
       {/* CTA */}
-      <div style={{ textAlign: "center", padding: "60px" }}>
+      <div style={{
+        textAlign: "center",
+        padding: "80px",
+        background: "linear-gradient(135deg,#ff6b35,#ff8c42)",
+        color: "#fff"
+      }}>
+        <h2>Start Your PR Journey Today</h2>
+
         <button
           onClick={() => {
             setSource("consultation");
             setShowModal(true);
           }}
           style={{
+            marginTop: "20px",
             padding: "14px 30px",
             background: "#000",
             color: "#fff",
-            borderRadius: "8px",
+            borderRadius: "10px",
             border: "none"
           }}
         >
@@ -215,23 +249,24 @@ export default function Home() {
         </button>
       </div>
 
-      {/* POPUP FORM */}
+      {/* MODAL FORM */}
       {showModal && (
         <div style={{
           position: "fixed",
           top: 0,
           width: "100%",
           height: "100%",
-          background: "rgba(0,0,0,0.5)",
+          background: "rgba(0,0,0,0.6)",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
+          zIndex: 999
         }}>
           <div style={{
             background: "#fff",
             padding: "30px",
-            borderRadius: "12px",
-            width: "380px"
+            borderRadius: "16px",
+            width: "400px"
           }}>
             <h3>
               {source === "consultation"
@@ -248,7 +283,7 @@ export default function Home() {
             <input placeholder="Phone" style={inputStyle}
               onChange={(e)=>setForm({...form,phone:e.target.value})} />
 
-            <input placeholder="Age" type="number" style={inputStyle}
+            <input type="number" placeholder="Age" style={inputStyle}
               onChange={(e)=>setForm({...form,age:e.target.value})} />
 
             <select style={inputStyle}
@@ -263,7 +298,7 @@ export default function Home() {
             <input placeholder="Occupation" style={inputStyle}
               onChange={(e)=>setForm({...form,occupation:e.target.value})} />
 
-            <input placeholder="Experience (years)" type="number" style={inputStyle}
+            <input type="number" placeholder="Experience (years)" style={inputStyle}
               onChange={(e)=>setForm({...form,experience:e.target.value})} />
 
             <button onClick={handleSubmit}
@@ -274,9 +309,21 @@ export default function Home() {
                 background: "#ff6b35",
                 color: "#fff",
                 border: "none",
-                borderRadius: "8px"
+                borderRadius: "10px"
               }}>
               Submit
+            </button>
+
+            <button onClick={()=>setShowModal(false)}
+              style={{
+                marginTop: "10px",
+                width: "100%",
+                padding: "10px",
+                background: "#eee",
+                border: "none",
+                borderRadius: "10px"
+              }}>
+              Cancel
             </button>
           </div>
         </div>
